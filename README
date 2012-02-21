@@ -1,0 +1,5 @@
+Para compilar se requieren los siguientes addons
+
+ofxXmlSettings (incluido en OF)
+ofxUI (https://github.com/rezaali/ofxUI)
+ofxMidi (https://github.com/danomatika/ofxMidi/tree/develop)
