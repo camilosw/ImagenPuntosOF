@@ -35,7 +35,7 @@ void ParticleController::setResolution(float value) {
 }
 
 void ParticleController::update(ofPixels image) {
-  float offset = ofMap(position, 0, 1, 0, -width, width);
+  float offset = ofMap(position, 0, 1, -width, width);
   for(list<Particle>::iterator p = particles.begin(); p != particles.end(); p++) {
 
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
@@ -60,7 +60,7 @@ void ParticleController::update(ofPixels image) {
 
 void ParticleController::draw() {
   ofPushStyle();
-  float offset = ofMap(position, 0, 1, 0, -width, width);
+  float offset = ofMap(position, 0, 1, -width, width);
   for(list<Particle>::iterator p = particles.begin(); p != particles.end(); p++) {
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
     if ( (p->getLocation().y) > height ||
