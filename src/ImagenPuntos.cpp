@@ -24,6 +24,10 @@ void ImagenPuntos::setup(){
     images[i].loadImage(directory.getPath(i));
   }
 
+  // Carga el video
+  video.loadMovie("videos/negedit.mov");
+  video.play();
+
   imageNumber = 0;
   particleController = ParticleController(ofGetWindowWidth(), ofGetWindowHeight(), 5, 30, 7);
 }
@@ -42,21 +46,22 @@ void ImagenPuntos::guiSetup() {
   sliderResolution     = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RESOLUCION));
   sliderRandomRadius   = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RADIO_ALEATORIO));
   sliderRandomPosition = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_ALEATORIA));
+  sliderPosicionImagen = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_IMAGEN));
 
   radioShape = (ofxUIRadio*)gui->addWidgetDown(new ofxUIRadio(8, 8, FORMAS, shapes, OFX_UI_ORIENTATION_HORIZONTAL));
+  toggleVideo = (ofxUIToggle*)gui->addWidgetDown(new ofxUIToggle(8, 8, false, VIDEO));
+  gui->addWidgetDown(new ofxUILabelButton(false, BOTON_IMAGEN_ANTERIOR, OFX_UI_FONT_SMALL));
+  gui->addWidgetEastOf(new ofxUILabelButton(false, BOTON_IMAGEN_SIGUIENTE, OFX_UI_FONT_SMALL), BOTON_IMAGEN_ANTERIOR);
   gui->loadSettings("GUI/guiSettings.xml");
   ofAddListener(gui->newGUIEvent,this,&ImagenPuntos::guiEvent);
-
-  //sliderRadius = (ofxUISlider*)gui->getWidget(RADIO);
-  //sliderResolution = (ofxUISlider*)gui->getWidget(RESOLUCION);
-  //sliderRandomRadius = (ofxUISlider*)gui->getWidget(RADIO_ALEATORIO);
-  //sliderRandomPosition = (ofxUISlider*)gui->getWidget(POSICION_ALEATORIA);
 
   radiusControl = sliderRadius->getScaledValue();
   resolutionControl = sliderResolution->getScaledValue();
   randomRadiusControl = sliderRandomRadius->getScaledValue();
   randomPositionControl = sliderRandomPosition->getScaledValue();
-  shapeControl = ((ofxUIRadio*)gui->getWidget(FORMAS))->getToggles()[0]->getValue() == true ? Circle : Square;
+  positionControl = sliderPosicionImagen->getScaledValue();
+  shapeControl = radioShape->getToggles()[0]->getValue() == true ? Circle : Square;
+  videoControl = toggleVideo->getValue();
 }
 //--------------------------------------------------------------
 void ImagenPuntos::guiMidiSetup() {
@@ -85,12 +90,6 @@ void ImagenPuntos::guiMidiSetup() {
   guiMidi->loadSettings("GUI/guiMidiSettings.xml");
   ofAddListener(guiMidi->newGUIEvent,this,&ImagenPuntos::guiEvent);
 
-  //labelCanalMidi = (ofxUILabel*)guiMidi->getWidget(CANAL_MIDI);
-  //labelPitchMidi = (ofxUILabel*)guiMidi->getWidget(PITCH_MIDI);
-  //labelVelocidadMidi = (ofxUILabel*)guiMidi->getWidget(VELOCIDAD_MIDI);
-  //labelControlMidi = (ofxUILabel*)guiMidi->getWidget(CONTROL_MIDI);
-  //labelValorMidi = (ofxUILabel*)guiMidi->getWidget(VALOR_MIDI);
-
   // Abre el último puerto midi seleccionado
   vector<ofxUILabelToggle *> midiToggles = puertosMidi->getToggles();
   for (int i = 0; i < midiToggles.size(); i++) {
@@ -114,8 +113,15 @@ void ImagenPuntos::update(){
   particleController.setResolution(resolutionControl);
   particleController.setRandomRadius(randomRadiusControl);
   particleController.setRandomPosition(randomPositionControl);
+  particleController.setPosition(positionControl);
   particleController.setShape(shapeControl);
-  particleController.update(images[imageNumber]);
+  if (toggleVideo->getValue()) {
+    video.idleMovie();
+    particleController.update(video.getPixelsRef());
+  }
+  else {
+    particleController.update(images[imageNumber].getPixelsRef());
+  }
 }
 
 //--------------------------------------------------------------
@@ -126,6 +132,7 @@ void ImagenPuntos::draw(){
   if (images.size() > 0) {
     particleController.draw();
   }
+  //video.draw(0,0);
 }
 
 //--------------------------------------------------------------
@@ -146,6 +153,10 @@ void ImagenPuntos::guiEvent(ofxUIEventArgs &event) {
   else if (name == POSICION_ALEATORIA) {
     ofxUISlider *slider = (ofxUISlider *)event.widget;
     randomPositionControl = slider->getScaledValue();
+  }
+  else if (name == POSICION_IMAGEN) {
+    ofxUISlider *slider = (ofxUISlider *)event.widget;
+    positionControl = slider->getScaledValue();
   }
   else if (name == "Círculos") {
     shapeControl = Circle;
@@ -168,6 +179,12 @@ void ImagenPuntos::guiEvent(ofxUIEventArgs &event) {
   else if (name == CONTROL_RANDOM_POSITION) {
     ofxUITextInput *text = (ofxUITextInput*)event.widget;
     randomPositionControlId = ofToInt(text->getTextString());
+  }
+  else if (name == BOTON_IMAGEN_ANTERIOR && ((ofxUIButton*)event.widget)->getValue()) {
+    if (imageNumber > 0) imageNumber--;
+  }
+  else if (name == BOTON_IMAGEN_SIGUIENTE && ((ofxUIButton*)event.widget)->getValue()) {
+    if (imageNumber < images.size() - 1) imageNumber++;
   }
   else {
     for (int i = 0; i < portList.size(); ++i) {

@@ -9,7 +9,11 @@
 #define RESOLUCION "Resolución"
 #define RADIO_ALEATORIO "Radio aleatorio"
 #define POSICION_ALEATORIA "Posición aleatoria"
+#define POSICION_IMAGEN "Posición imagen"
 #define FORMAS "Formas"
+#define VIDEO "Video"
+#define BOTON_IMAGEN_ANTERIOR "<-"
+#define BOTON_IMAGEN_SIGUIENTE "->"
 
 #define PUERTOS_MIDI "Puertos midi"
 #define CANAL_MIDI "Canal midi"
@@ -22,7 +26,9 @@
 #define CONTROL_RANDOM_RADIUS "Control radio aleatorio"
 #define CONTROL_RANDOM_POSITION "Control posición aleatoria"
 #define CONTROL_FORMA "Control de forma"
-#define PITCH_FORMA "Control de forma"
+#define PITCH_FORMA "Pitch de forma"
+#define CONTROL_VIDEO "Control de video"
+#define PITCH_VIDEO "Pitch de video"
 
 class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
 
@@ -52,6 +58,7 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofDirectory directory;
     vector<ofImage> images;
     ofImage background;
+    ofVideoPlayer video;
 
     // Atributos de la gui
     ofxUICanvas* gui;
@@ -60,7 +67,9 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUISlider* sliderResolution;
     ofxUISlider* sliderRandomRadius;
     ofxUISlider* sliderRandomPosition;
+    ofxUISlider* sliderPosicionImagen;
     ofxUIRadio* radioShape;
+    ofxUIToggle* toggleVideo;
 
     // Atributos de la interfaz midi
     ofxMidiIn	midiIn;
@@ -77,11 +86,15 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     float resolutionControl;
     float randomRadiusControl;
     float randomPositionControl;
+    float positionControl;
     Shapes shapeControl;
+    bool videoControl;
     int radiusControlId;
     int resolutionControlId;
     int randomRadiusControlId;
-    int randomPositionControlId;
+    int randomPositionControlId;    
     int shapeControlId;
     int shapeControlPitch;
+    int videoControlId;
+    int videoControlPitch;
 };

@@ -9,7 +9,7 @@ class ParticleController
   public:
   ParticleController();
   ParticleController(int width, int height, int minResolution, int maxResolution, float maxRadius);
-  void update(ofImage image);
+  void update(ofPixels image);
   void draw();
 
   void setResolution(float value);

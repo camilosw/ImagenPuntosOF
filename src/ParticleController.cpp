@@ -34,17 +34,21 @@ void ParticleController::setResolution(float value) {
   }
 }
 
-void ParticleController::update(ofImage image) {
+void ParticleController::update(ofPixels image) {
+  float offset = ofMap(position, 0, 1, 0, -width, width);
   for(list<Particle>::iterator p = particles.begin(); p != particles.end(); p++) {
 
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
-    if ( (p->getLocation().y - resolution) > height ||
-         (p->getLocation().x - resolution) > width) {
+    if ( (p->getLocation().y) > height ||
+         (p->getLocation().y) > image.getHeight() ||
+         (p->getLocation().x + offset - resolution) > width ||
+         (p->getLocation().x + offset - resolution) < 0) {
       continue;
     }
 
     // Obtiene el color de un pixel de la imagen
-    ofColor color = image.getColor(p->getLocation().x, p->getLocation().y);
+    //ofVec2f location = p->getLocation();
+    ofColor color = image.getColor(p->getLocation().x + offset, p->getLocation().y);
     p->setColor(color);
     p->setRadius(radius * maxRadius + ofRandom(-1, 1) * randomRadius * radius * maxRadius);
     ofVec2f randomVec2f = ofVec2f(ofRandom(-randomPosition * resolution, randomPosition * resolution),
@@ -56,10 +60,13 @@ void ParticleController::update(ofImage image) {
 
 void ParticleController::draw() {
   ofPushStyle();
+  float offset = ofMap(position, 0, 1, 0, -width, width);
   for(list<Particle>::iterator p = particles.begin(); p != particles.end(); p++) {
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
-    if ( (p->getLocation().y - resolution) > height ||
-         (p->getLocation().x - resolution) > width) {
+    if ( (p->getLocation().y) > height ||
+         (p->getLocation().y) > width ||
+         (p->getLocation().x + offset) > width ||
+         (p->getLocation().x + offset) < 0) {
       continue;
     }
     p->draw();
