@@ -2,12 +2,14 @@
 #include <stdio.h>
 
 //--------------------------------------------------------------
-void ImagenPuntos::setup(){
+void ImagenPuntos::setup(){  
   ofSetFrameRate(30);
 
   guiSetup();
   guiMidiSetup();
-
+  gui->setVisible(false);
+  guiMidi->setVisible(false);
+  
   // Carga la imagen de fondo
   background.loadImage("prueba2.jpg");
 
@@ -37,7 +39,7 @@ void ImagenPuntos::guiSetup() {
   shapes.push_back("Círculos");
   shapes.push_back("Cuadrados");
 
-  gui = new ofxUICanvas(0, 0, 220, 320);
+  gui = new ofxUICanvas(0, 0, 220, 400);
   gui->setColorBack(ofColor(0, 150));
   gui->addWidgetDown(new ofxUIFPS(OFX_UI_FONT_SMALL));
   gui->addWidgetDown(new ofxUISpacer(200, 2));
@@ -50,6 +52,7 @@ void ImagenPuntos::guiSetup() {
 
   radioShape = (ofxUIRadio*)gui->addWidgetDown(new ofxUIRadio(8, 8, FORMAS, shapes, OFX_UI_ORIENTATION_HORIZONTAL));
   toggleVideo = (ofxUIToggle*)gui->addWidgetDown(new ofxUIToggle(8, 8, false, VIDEO));
+  toggleOcultarFondo  = (ofxUIToggle*)gui->addWidgetDown(new ofxUIToggle(8, 8, false, OCULTAR_FONDO));
   gui->addWidgetDown(new ofxUILabelButton(false, BOTON_IMAGEN_ANTERIOR, OFX_UI_FONT_SMALL));
   gui->addWidgetEastOf(new ofxUILabelButton(false, BOTON_IMAGEN_SIGUIENTE, OFX_UI_FONT_SMALL), BOTON_IMAGEN_ANTERIOR);
   gui->loadSettings("GUI/guiSettings.xml");
@@ -61,7 +64,6 @@ void ImagenPuntos::guiSetup() {
   randomPositionControl = sliderRandomPosition->getScaledValue();
   positionControl = sliderPosicionImagen->getScaledValue();
   shapeControl = radioShape->getToggles()[0]->getValue() == true ? Circle : Square;
-  videoControl = toggleVideo->getValue();
 }
 //--------------------------------------------------------------
 void ImagenPuntos::guiMidiSetup() {
@@ -73,6 +75,7 @@ void ImagenPuntos::guiMidiSetup() {
   guiMidi->setColorBack(ofColor(0, 150));
   ofxUIDropDownList* puertosMidi =
     (ofxUIDropDownList*)guiMidi->addWidgetDown(new ofxUIDropDownList(200, PUERTOS_MIDI, portList, OFX_UI_FONT_SMALL));
+  puertosMidi->setAutoClose(true);
 
   labelCanalMidi     = (ofxUILabel*)guiMidi->addWidgetDown(new ofxUILabel(CANAL_MIDI, OFX_UI_FONT_SMALL));
   labelPitchMidi     = (ofxUILabel*)guiMidi->addWidgetDown(new ofxUILabel(PITCH_MIDI, OFX_UI_FONT_SMALL));
@@ -100,12 +103,12 @@ void ImagenPuntos::guiMidiSetup() {
     }
   }
 
-  radiusControlId = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RADIUS))->getTextString());
-  resolutionControlId = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RESOLUTION))->getTextString());
-  randomRadiusControlId = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RANDOM_RADIUS))->getTextString());
+  radiusControlId         = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RADIUS))->getTextString());
+  resolutionControlId     = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RESOLUTION))->getTextString());
+  randomRadiusControlId   = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RANDOM_RADIUS))->getTextString());
   randomPositionControlId = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RANDOM_POSITION))->getTextString());
-  shapeControlId = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_FORMA))->getTextString());
-  shapeControlPitch = ofToInt(((ofxUITextInput*)guiMidi->getWidget(PITCH_FORMA))->getTextString());
+  shapeControlId          = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_FORMA))->getTextString());
+  shapeControlPitch       = ofToInt(((ofxUITextInput*)guiMidi->getWidget(PITCH_FORMA))->getTextString());
 }
 //--------------------------------------------------------------
 void ImagenPuntos::update(){
@@ -128,11 +131,12 @@ void ImagenPuntos::update(){
 void ImagenPuntos::draw(){
   ofBackground(0);
   ofSetColor(255);
-  background.draw(0, 0);
+  if (!toggleOcultarFondo->getValue()) {
+    background.draw(0, 0);
+  }  
   if (images.size() > 0) {
     particleController.draw();
   }
-  //video.draw(0,0);
 }
 
 //--------------------------------------------------------------
@@ -236,6 +240,15 @@ void ImagenPuntos::keyPressed(int key){
     case 'g': {
       gui->toggleVisible();
       guiMidi->toggleVisible();
+      break;
+    }
+    case 'v': {
+      toggleVideo->toggleValue();
+      break;
+    }
+    case 'b': {
+      toggleOcultarFondo->toggleValue();
+      break;
     }
   }
 }

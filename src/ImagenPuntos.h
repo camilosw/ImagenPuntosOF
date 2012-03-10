@@ -11,7 +11,8 @@
 #define POSICION_ALEATORIA "Posición aleatoria"
 #define POSICION_IMAGEN "Posición imagen"
 #define FORMAS "Formas"
-#define VIDEO "Video"
+#define VIDEO "Video (v)"
+#define OCULTAR_FONDO "Ocultar fondo (b)"
 #define BOTON_IMAGEN_ANTERIOR "<-"
 #define BOTON_IMAGEN_SIGUIENTE "->"
 
@@ -70,6 +71,7 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUISlider* sliderPosicionImagen;
     ofxUIRadio* radioShape;
     ofxUIToggle* toggleVideo;
+    ofxUIToggle* toggleOcultarFondo;
 
     // Atributos de la interfaz midi
     ofxMidiIn	midiIn;
@@ -88,7 +90,6 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     float randomPositionControl;
     float positionControl;
     Shapes shapeControl;
-    bool videoControl;
     int radiusControlId;
     int resolutionControlId;
     int randomRadiusControlId;
