@@ -22,7 +22,7 @@ void ImagenPuntos::setup(){
   }
 
   for(int i = 0; i < (int)directory.size(); i++){
-    images[i].setUseTexture(false);
+    //images[i].setUseTexture(false);
     images[i].loadImage(directory.getPath(i));
   }
 
