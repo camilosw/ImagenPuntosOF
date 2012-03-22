@@ -10,6 +10,8 @@
 #define RADIO_ALEATORIO "Radio aleatorio"
 #define POSICION_ALEATORIA "Posición aleatoria"
 #define POSICION_IMAGEN "Posición imagen"
+#define TRANSPARENCIA_PUNTOS "Transparencia puntos"
+#define CROSSFADE_PUNTOS "Crossfade puntos"
 #define FORMAS "Formas"
 #define VIDEO "Video (v)"
 #define OCULTAR_FONDO "Ocultar fondo (b)"
@@ -69,6 +71,8 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUISlider* sliderRandomRadius;
     ofxUISlider* sliderRandomPosition;
     ofxUISlider* sliderPosicionImagen;
+    ofxUISlider* sliderTransparencia;
+    ofxUISlider* sliderCrossfadePuntos;
     ofxUIRadio* radioShape;
     ofxUIToggle* toggleVideo;
     ofxUIToggle* toggleOcultarFondo;
@@ -89,6 +93,8 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     float randomRadiusControl;
     float randomPositionControl;
     float positionControl;
+    float transparenciaControl;
+    float crossfadePuntosControl;
     Shapes shapeControl;
     int radiusControlId;
     int resolutionControlId;

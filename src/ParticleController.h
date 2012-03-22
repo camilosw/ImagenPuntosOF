@@ -9,7 +9,7 @@ class ParticleController
   public:
   ParticleController();
   ParticleController(int width, int height, int minResolution, int maxResolution, float maxRadius);
-  void update(ofPixels image);
+  void update(ofPixels pixels);
   void draw();
 
   void setResolution(float value);
@@ -18,6 +18,7 @@ class ParticleController
   void setShape(Shapes value) { shape = value; }
   void setRandomRadius(float value) { randomRadius = value; }
   void setRandomPosition(float value) { randomPosition = value; }
+  void setAlpha(float value) { alpha = value; }
 
   Shapes getShape() { return shape; }
   float getRandomRadius() { return randomRadius; }
@@ -36,8 +37,9 @@ class ParticleController
     float radius;             // Radio de las partículas
     float position;           // Posición en x de la imagen
     Shapes shape;             // Forma de las partículas (círculo o cuadrado)
-    float randomRadius;        // Determina la magnitud de cambio aleatorio del radio
-    float randomPosition;      // Determina la magnitud de cambio aleatorio de la posición
+    float randomRadius;       // Determina la magnitud de cambio aleatorio del radio
+    float randomPosition;     // Determina la magnitud de cambio aleatorio de la posición
+    float alpha;               // Determina el alpha de los puntos
 };
 
 #endif // PARTICLECONTROLLER_H

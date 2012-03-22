@@ -44,11 +44,13 @@ void ImagenPuntos::guiSetup() {
   gui->addWidgetDown(new ofxUIFPS(OFX_UI_FONT_SMALL));
   gui->addWidgetDown(new ofxUISpacer(200, 2));
 
-  sliderRadius         = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RADIO));
-  sliderResolution     = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RESOLUCION));
-  sliderRandomRadius   = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RADIO_ALEATORIO));
-  sliderRandomPosition = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_ALEATORIA));
-  sliderPosicionImagen = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_IMAGEN));
+  sliderRadius          = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RADIO));
+  sliderResolution      = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RESOLUCION));
+  sliderRandomRadius    = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, RADIO_ALEATORIO));
+  sliderRandomPosition  = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_ALEATORIA));
+  sliderPosicionImagen  = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_IMAGEN));
+  sliderTransparencia   = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, TRANSPARENCIA_PUNTOS));
+  sliderCrossfadePuntos = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, CROSSFADE_PUNTOS));
 
   radioShape = (ofxUIRadio*)gui->addWidgetDown(new ofxUIRadio(8, 8, FORMAS, shapes, OFX_UI_ORIENTATION_HORIZONTAL));
   toggleVideo = (ofxUIToggle*)gui->addWidgetDown(new ofxUIToggle(8, 8, false, VIDEO));
@@ -63,6 +65,8 @@ void ImagenPuntos::guiSetup() {
   randomRadiusControl = sliderRandomRadius->getScaledValue();
   randomPositionControl = sliderRandomPosition->getScaledValue();
   positionControl = sliderPosicionImagen->getScaledValue();
+  transparenciaControl = sliderTransparencia->getScaledValue();
+  crossfadePuntosControl = sliderCrossfadePuntos->getScaledValue();
   shapeControl = radioShape->getToggles()[0]->getValue() == true ? Circle : Square;
 }
 //--------------------------------------------------------------
@@ -118,6 +122,7 @@ void ImagenPuntos::update(){
   particleController.setRandomPosition(randomPositionControl);
   particleController.setPosition(positionControl);
   particleController.setShape(shapeControl);
+  particleController.setAlpha(transparenciaControl);
   if (toggleVideo->getValue()) {
     video.idleMovie();
     particleController.update(video.getPixelsRef());
@@ -131,6 +136,7 @@ void ImagenPuntos::update(){
 void ImagenPuntos::draw(){
   ofBackground(0);
   ofSetColor(255);
+  ofEnableAlphaBlending();
   if (!toggleOcultarFondo->getValue()) {
     background.draw(0, 0);
   }  
@@ -161,6 +167,14 @@ void ImagenPuntos::guiEvent(ofxUIEventArgs &event) {
   else if (name == POSICION_IMAGEN) {
     ofxUISlider *slider = (ofxUISlider *)event.widget;
     positionControl = slider->getScaledValue();
+  }
+  else if (name == TRANSPARENCIA_PUNTOS) {
+    ofxUISlider *slider = (ofxUISlider *)event.widget;
+    transparenciaControl = slider->getScaledValue();
+  }
+  else if (name == CROSSFADE_PUNTOS) {
+    ofxUISlider *slider = (ofxUISlider *)event.widget;
+    crossfadePuntosControl = slider->getScaledValue();
   }
   else if (name == "Círculos") {
     shapeControl = Circle;
