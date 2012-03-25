@@ -9,7 +9,7 @@ class ParticleController
   public:
   ParticleController();
   ParticleController(int width, int height, int minResolution, int maxResolution, float maxRadius);
-  void update(ofPixels pixels);
+  void update(ofPixels pixels, ofTexture *image);
   void draw();
 
   void setResolution(float value);
@@ -19,6 +19,7 @@ class ParticleController
   void setRandomRadius(float value) { randomRadius = value; }
   void setRandomPosition(float value) { randomPosition = value; }
   void setAlpha(float value) { alpha = value; }
+  void setCrossfade(float value) { crossfade = value; }
 
   Shapes getShape() { return shape; }
   float getRandomRadius() { return randomRadius; }
@@ -27,6 +28,7 @@ class ParticleController
   protected:
   private:
     std::list<Particle> particles;
+    ofTexture *image;
     int width;
     int height;
 
@@ -39,7 +41,8 @@ class ParticleController
     Shapes shape;             // Forma de las partículas (círculo o cuadrado)
     float randomRadius;       // Determina la magnitud de cambio aleatorio del radio
     float randomPosition;     // Determina la magnitud de cambio aleatorio de la posición
-    float alpha;               // Determina el alpha de los puntos
+    float alpha;              // Determina el alpha de los puntos
+    float crossfade;          // Modifica el cambio de alpha entre la imagen y los puntos
 };
 
 #endif // PARTICLECONTROLLER_H

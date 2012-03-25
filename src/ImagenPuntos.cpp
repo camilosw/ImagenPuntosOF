@@ -123,12 +123,13 @@ void ImagenPuntos::update(){
   particleController.setPosition(positionControl);
   particleController.setShape(shapeControl);
   particleController.setAlpha(transparenciaControl);
+  particleController.setCrossfade(crossfadePuntosControl);
   if (toggleVideo->getValue()) {
     video.idleMovie();
-    particleController.update(video.getPixelsRef());
+    particleController.update(video.getPixelsRef(), &video.getTextureReference());
   }
   else {
-    particleController.update(images[imageNumber].getPixelsRef());
+    particleController.update(images[imageNumber].getPixelsRef(), &images[imageNumber].getTextureReference());
   }
 }
 
@@ -136,7 +137,6 @@ void ImagenPuntos::update(){
 void ImagenPuntos::draw(){
   ofBackground(0);
   ofSetColor(255);
-  ofEnableAlphaBlending();
   if (!toggleOcultarFondo->getValue()) {
     background.draw(0, 0);
   }  

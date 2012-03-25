@@ -59,22 +59,22 @@
 		<Cursor position="5799" topLine="196" />
 	</File>
 	<File name="src\ImagenPuntos.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="5784" topLine="93" />
+		<Cursor position="6551" topLine="110" />
 	</File>
 	<File name="src\ImagenPuntos.h" open="1" top="0" tabpos="2">
-		<Cursor position="2882" topLine="75" />
+		<Cursor position="2252" topLine="66" />
 	</File>
 	<File name="src\Particle.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="449" topLine="5" />
 	</File>
 	<File name="src\Particle.h" open="0" top="0" tabpos="5">
-		<Cursor position="243" topLine="11" />
+		<Cursor position="861" topLine="11" />
 	</File>
-	<File name="src\ParticleController.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="2590" topLine="46" />
+	<File name="src\ParticleController.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1666" topLine="27" />
 	</File>
-	<File name="src\ParticleController.h" open="1" top="0" tabpos="4">
-		<Cursor position="687" topLine="8" />
+	<File name="src\ParticleController.h" open="1" top="1" tabpos="4">
+		<Cursor position="511" topLine="1" />
 	</File>
 	<File name="src\main.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="223" topLine="0" />

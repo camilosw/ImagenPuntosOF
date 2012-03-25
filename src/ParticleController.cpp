@@ -35,7 +35,8 @@ void ParticleController::setResolution(float value) {
   }
 }
 
-void ParticleController::update(ofPixels pixels) {
+void ParticleController::update(ofPixels pixels, ofTexture *image) {
+  this->image = image;
   float offset = ceil(ofMap(position, 0, 1, -width, width));
   for(list<Particle>::iterator p = particles.begin(); p != particles.end(); p++) {
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
@@ -49,7 +50,7 @@ void ParticleController::update(ofPixels pixels) {
     // Obtiene el color de un pixel de la imagen
     //ofVec2f location = p->getLocation();
     ofColor color = pixels.getColor(p->getLocation().x + offset, p->getLocation().y);
-    color[3] *= alpha;
+    color[3] *= alpha * crossfade;
     p->setColor(color);
     p->setRadius(radius * maxRadius + ofRandom(-1, 1) * randomRadius * radius * maxRadius);
     ofVec2f randomVec2f = ofVec2f(ofRandom(-randomPosition * resolution, randomPosition * resolution),
@@ -61,6 +62,7 @@ void ParticleController::update(ofPixels pixels) {
 
 void ParticleController::draw() {
   ofPushStyle();
+  ofEnableAlphaBlending();
   float offset = ofMap(position, 0, 1, -width, width);
   for(list<Particle>::iterator p = particles.begin(); p != particles.end(); p++) {
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
@@ -72,6 +74,11 @@ void ParticleController::draw() {
     }
     p->draw();
   }
+
+  // Modifica la posición y la transparencia de la imagen
+  ofSetColor(255, 255, 255, alpha * (1 - crossfade) * 255);
+  image->draw(-offset, 0, width, height);
+
   ofDisableAlphaBlending();
   ofPopStyle();
 }
