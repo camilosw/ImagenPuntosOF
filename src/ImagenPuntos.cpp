@@ -29,7 +29,7 @@ void ImagenPuntos::setup(){
 
   // Carga el video
   video.loadMovie("videos/negedit.mov");
-  video.play();
+  //video.play();
 
   imageNumber = 0;
   particleController = ParticleController(ofGetWindowWidth(), ofGetWindowHeight(), 5, 30, 7);

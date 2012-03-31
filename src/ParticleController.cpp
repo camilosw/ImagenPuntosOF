@@ -42,7 +42,7 @@ void ParticleController::update(ofPixels pixels, ofTexture *image) {
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
     if ( (p->getLocation().y) > height ||
          (p->getLocation().y) > pixels.getHeight() ||
-         (p->getLocation().x + offset - resolution) > width ||
+         (p->getLocation().x + offset) > width ||
          (p->getLocation().x + offset) < 0) {
       continue;
     }
@@ -68,7 +68,7 @@ void ParticleController::draw() {
     // Determina si la partícula es visible. Si no lo es, continúa con la siguiente
     if ( (p->getLocation().y) > height ||
          (p->getLocation().y) > width ||
-         (p->getLocation().x + offset - resolution) > width ||
+         (p->getLocation().x + offset) > width ||
          (p->getLocation().x + offset) < 0) {
       continue;
     }
