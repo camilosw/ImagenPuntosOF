@@ -28,9 +28,11 @@
 #define CONTROL_RESOLUTION "Control resolución"
 #define CONTROL_RANDOM_RADIUS "Control radio aleatorio"
 #define CONTROL_RANDOM_POSITION "Control posición aleatoria"
-#define CONTROL_FORMA "Control de forma"
+#define CONTROL_POSITION "Control posición"
 #define CONTROL_TRANSPARENCIA "Control Transparencia"
 #define CONTROL_CROSSFADE "Control Crossfade"
+
+#define CONTROL_FORMA "Control de forma"
 #define PITCH_FORMA "Pitch de forma"
 #define CONTROL_VIDEO "Control de video"
 #define PITCH_VIDEO "Pitch de video"

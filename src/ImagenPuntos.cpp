@@ -69,7 +69,7 @@ void ImagenPuntos::guiMidiSetup() {
   midiIn.setVerbose(true);
   portList = midiIn.getPortList();
 
-  guiMidi = new ofxUICanvas(ofGetWidth() - 220, 0, 220, 400);
+  guiMidi = new ofxUICanvas(ofGetWidth() - 220, 0, 220, 500);
   guiMidi->setColorBack(ofColor(0, 150));
   ofxUIDropDownList* puertosMidi =
     (ofxUIDropDownList*)guiMidi->addWidgetDown(new ofxUIDropDownList(200, PUERTOS_MIDI, portList, OFX_UI_FONT_SMALL));
@@ -90,6 +90,8 @@ void ImagenPuntos::guiMidiSetup() {
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_RADIUS, "Control de radio aleatorio", OFX_UI_FONT_SMALL));
   controlRandomPosition = 
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_POSITION, "Control de posición aleatoria", OFX_UI_FONT_SMALL));
+  controlPosicionImagen = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_POSITION, "Control de posición", OFX_UI_FONT_SMALL));
   controlTransparencia = 
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_TRANSPARENCIA, "Control de transparencia", OFX_UI_FONT_SMALL));
   controlCrossfadePuntos = 
@@ -188,6 +190,9 @@ void ImagenPuntos::newMidiMessage(ofxMidiMessage& msg) {
   else if (msg.control == ofToInt(controlRandomPosition->getTextString())) {
     sliderRandomPosition->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
+  else if (msg.control == ofToInt(controlPosicionImagen->getTextString())) {
+    sliderPosicionImagen->setValue(ofMap(msg.value, 0, 127, 0, 1));
+  }
   else if (msg.control == ofToInt(controlTransparencia->getTextString())) {
     sliderTransparencia->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
@@ -219,6 +224,10 @@ void ImagenPuntos::keyPressed(int key){
     }
     case 'b': {
       toggleOcultarFondo->toggleValue();
+      break;
+    }
+    case 's': {
+      shapeControl = shapeControl == Circle ? Square : Circle;
       break;
     }
     case 356: { // Flecha izquierda
