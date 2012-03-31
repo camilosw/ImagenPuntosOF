@@ -11,7 +11,8 @@ void ImagenPuntos::setup(){
   guiMidi->setVisible(false);
   
   // Carga la imagen de fondo
-  background.loadImage("prueba2.jpg");
+  background.loadImage("cielo.jpg");
+
 
   // Carga las demás imágenes
   directory.listDir("imagenes/");
@@ -60,13 +61,6 @@ void ImagenPuntos::guiSetup() {
   gui->loadSettings("GUI/guiSettings.xml");
   ofAddListener(gui->newGUIEvent,this,&ImagenPuntos::guiEvent);
 
-  radiusControl = sliderRadius->getScaledValue();
-  resolutionControl = sliderResolution->getScaledValue();
-  randomRadiusControl = sliderRandomRadius->getScaledValue();
-  randomPositionControl = sliderRandomPosition->getScaledValue();
-  positionControl = sliderPosicionImagen->getScaledValue();
-  transparenciaControl = sliderTransparencia->getScaledValue();
-  crossfadePuntosControl = sliderCrossfadePuntos->getScaledValue();
   shapeControl = radioShape->getToggles()[0]->getValue() == true ? Circle : Square;
 }
 //--------------------------------------------------------------
@@ -88,10 +82,18 @@ void ImagenPuntos::guiMidiSetup() {
   labelValorMidi     = (ofxUILabel*)guiMidi->addWidgetDown(new ofxUILabel(VALOR_MIDI, OFX_UI_FONT_SMALL));
 
   guiMidi->addWidgetDown(new ofxUISpacer(200, 2));
-  guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RADIUS, "Control de radio", OFX_UI_FONT_SMALL));
-  guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RESOLUTION, "Control de resolución", OFX_UI_FONT_SMALL));
-  guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_RADIUS, "Control de radio aleatorio", OFX_UI_FONT_SMALL));
-  guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_POSITION, "Control de posición aleatoria", OFX_UI_FONT_SMALL));
+  controlRadius = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RADIUS, "Control de radio", OFX_UI_FONT_SMALL));
+  controlResolution = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RESOLUTION, "Control de resolución", OFX_UI_FONT_SMALL));
+  controlRandomRadius = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_RADIUS, "Control de radio aleatorio", OFX_UI_FONT_SMALL));
+  controlRandomPosition = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_POSITION, "Control de posición aleatoria", OFX_UI_FONT_SMALL));
+  controlTransparencia = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_TRANSPARENCIA, "Control de transparencia", OFX_UI_FONT_SMALL));
+  controlCrossfadePuntos = 
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_CROSSFADE, "Control crossfade", OFX_UI_FONT_SMALL));
   guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_FORMA, "Control de forma", OFX_UI_FONT_SMALL));
   guiMidi->addWidgetDown(new ofxUITextInput(200, PITCH_FORMA, "Pitch de forma", OFX_UI_FONT_SMALL));
   guiMidi->loadSettings("GUI/guiMidiSettings.xml");
@@ -107,23 +109,19 @@ void ImagenPuntos::guiMidiSetup() {
     }
   }
 
-  radiusControlId         = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RADIUS))->getTextString());
-  resolutionControlId     = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RESOLUTION))->getTextString());
-  randomRadiusControlId   = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RANDOM_RADIUS))->getTextString());
-  randomPositionControlId = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_RANDOM_POSITION))->getTextString());
   shapeControlId          = ofToInt(((ofxUITextInput*)guiMidi->getWidget(CONTROL_FORMA))->getTextString());
   shapeControlPitch       = ofToInt(((ofxUITextInput*)guiMidi->getWidget(PITCH_FORMA))->getTextString());
 }
 //--------------------------------------------------------------
 void ImagenPuntos::update(){
-  particleController.setRadius(radiusControl);
-  particleController.setResolution(resolutionControl);
-  particleController.setRandomRadius(randomRadiusControl);
-  particleController.setRandomPosition(randomPositionControl);
-  particleController.setPosition(positionControl);
+  particleController.setRadius(sliderRadius->getScaledValue());
+  particleController.setResolution(sliderResolution->getScaledValue());
+  particleController.setRandomRadius(sliderRandomRadius->getScaledValue());
+  particleController.setRandomPosition(sliderRandomPosition->getScaledValue());
+  particleController.setPosition(sliderPosicionImagen->getScaledValue());
   particleController.setShape(shapeControl);
-  particleController.setAlpha(transparenciaControl);
-  particleController.setCrossfade(crossfadePuntosControl);
+  particleController.setAlpha(sliderTransparencia->getScaledValue());
+  particleController.setCrossfade(sliderCrossfadePuntos->getScaledValue());
   if (toggleVideo->getValue()) {
     video.idleMovie();
     particleController.update(video.getPixelsRef(), &video.getTextureReference());
@@ -148,55 +146,11 @@ void ImagenPuntos::draw(){
 //--------------------------------------------------------------
 void ImagenPuntos::guiEvent(ofxUIEventArgs &event) {
   string name = event.widget->getName();
-  if (name == RADIO) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    radiusControl = slider->getScaledValue();
-  }
-  else if (name == RESOLUCION) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    resolutionControl = slider->getScaledValue();
-  }
-  else if (name == RADIO_ALEATORIO) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    randomRadiusControl = slider->getScaledValue();
-  }
-  else if (name == POSICION_ALEATORIA) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    randomPositionControl = slider->getScaledValue();
-  }
-  else if (name == POSICION_IMAGEN) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    positionControl = slider->getScaledValue();
-  }
-  else if (name == TRANSPARENCIA_PUNTOS) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    transparenciaControl = slider->getScaledValue();
-  }
-  else if (name == CROSSFADE_PUNTOS) {
-    ofxUISlider *slider = (ofxUISlider *)event.widget;
-    crossfadePuntosControl = slider->getScaledValue();
-  }
-  else if (name == "Círculos") {
+  if (name == "Círculos") {
     shapeControl = Circle;
   }
   else if (name == "Cuadrados") {
     shapeControl = Square;
-  }
-  else if (name == CONTROL_RADIUS) {
-    ofxUITextInput *text = (ofxUITextInput*)event.widget;
-    radiusControlId = ofToInt(text->getTextString());
-  }
-  else if (name == CONTROL_RESOLUTION) {
-    ofxUITextInput *text = (ofxUITextInput*)event.widget;
-    resolutionControlId = ofToInt(text->getTextString());
-  }
-  else if (name == CONTROL_RANDOM_RADIUS) {
-    ofxUITextInput *text = (ofxUITextInput*)event.widget;
-    randomRadiusControlId = ofToInt(text->getTextString());
-  }
-  else if (name == CONTROL_RANDOM_POSITION) {
-    ofxUITextInput *text = (ofxUITextInput*)event.widget;
-    randomPositionControlId = ofToInt(text->getTextString());
   }
   else if (name == BOTON_IMAGEN_ANTERIOR && ((ofxUIButton*)event.widget)->getValue()) {
     if (imageNumber > 0) imageNumber--;
@@ -222,21 +176,23 @@ void ImagenPuntos::newMidiMessage(ofxMidiMessage& msg) {
   labelControlMidi->setLabel("Control: " + ofToString(msg.control));
   labelValorMidi->setLabel("Valor: " + ofToString(msg.value));
 
-  if (msg.control == radiusControlId) {
-    radiusControl = ofMap(msg.value, 0, 127, 0, 1);
-    sliderRadius->setValue(radiusControl);
+  if (msg.control == ofToInt(controlRadius->getTextString())) {
+    sliderRadius->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
-  else if (msg.control == resolutionControlId) {
-    resolutionControl = ofMap(msg.value, 0, 127, 0, 1);
-    sliderResolution->setValue(resolutionControl);
+  else if (msg.control == ofToInt(controlResolution->getTextString())) {
+    sliderResolution->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
-  else if (msg.control == randomRadiusControlId) {
-    randomRadiusControl = ofMap(msg.value, 0, 127, 0, 1);
-    sliderRandomRadius->setValue(randomRadiusControl);
+  else if (msg.control == ofToInt(controlRandomRadius->getTextString())) {
+    sliderRandomRadius->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
-  else if (msg.control == randomPositionControlId) {
-    randomPositionControl = ofMap(msg.value, 0, 127, 0, 1);
-    sliderRandomPosition->setValue(randomPositionControl);
+  else if (msg.control == ofToInt(controlRandomPosition->getTextString())) {
+    sliderRandomPosition->setValue(ofMap(msg.value, 0, 127, 0, 1));
+  }
+  else if (msg.control == ofToInt(controlTransparencia->getTextString())) {
+    sliderTransparencia->setValue(ofMap(msg.value, 0, 127, 0, 1));
+  }
+  else if (msg.control == ofToInt(controlCrossfadePuntos->getTextString())) {
+    sliderCrossfadePuntos->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
   else if (msg.control == shapeControlId && msg.value > 0) {
     shapeControl = shapeControl == Circle ? Square : Circle;
@@ -250,6 +206,7 @@ void ImagenPuntos::newMidiMessage(ofxMidiMessage& msg) {
 
 //--------------------------------------------------------------
 void ImagenPuntos::keyPressed(int key){
+  cout << key << "\n";
   switch (key) {
     case 'g': {
       gui->toggleVisible();
@@ -264,6 +221,87 @@ void ImagenPuntos::keyPressed(int key){
       toggleOcultarFondo->toggleValue();
       break;
     }
+    case 356: { // Flecha izquierda
+      if (imageNumber > 0) imageNumber--;
+      break;
+    }
+    case 358: { // Flecha derecha
+      if (imageNumber < images.size() - 1) imageNumber++;
+      break;
+    }
+    case 357: { // Flecha arriba
+      video.play();
+      break;
+    }
+    case 359: { // Flecha abajo
+      video.stop();
+      break;
+    }
+    case '0': {
+      sliderRadius->setValue(0);
+      sliderResolution->setValue(0);
+      sliderRandomRadius->setValue(0);
+      sliderRandomPosition->setValue(0);
+      sliderPosicionImagen->setValue(0.5);
+      sliderTransparencia->setValue(0);
+      sliderCrossfadePuntos->setValue(0);
+      toggleVideo->setValue(false);    
+      toggleOcultarFondo->setValue(true);
+      shapeControl = Circle;
+      video.setPosition(0);
+      video.stop();
+      imageNumber = 0;      
+      break;
+    }
+    case '1': {
+      sliderRadius->setValue(1);
+      sliderResolution->setValue(1);
+      sliderRandomRadius->setValue(0);
+      sliderRandomPosition->setValue(0);
+      sliderPosicionImagen->setValue(0.5);
+      sliderTransparencia->setValue(1);
+      sliderCrossfadePuntos->setValue(1);
+      toggleVideo->setValue(true);    
+      toggleOcultarFondo->setValue(true);
+      shapeControl = Circle;
+      video.setPosition(0);
+      video.play();
+      imageNumber = 0;      
+      break;
+    }
+    case '2': {
+      sliderRadius->setValue(0);
+      sliderResolution->setValue(0);
+      sliderRandomRadius->setValue(0);
+      sliderRandomPosition->setValue(0);
+      sliderPosicionImagen->setValue(0.5);
+      sliderTransparencia->setValue(1);
+      sliderCrossfadePuntos->setValue(0);
+      toggleVideo->setValue(false);
+      toggleOcultarFondo->setValue(true);
+      shapeControl = Circle;
+      video.setPosition(0);
+      video.stop();
+      imageNumber = 0;      
+
+      break;
+    }    
+    case '3': {
+      sliderRadius->setValue(0);
+      sliderResolution->setValue(0);
+      sliderRandomRadius->setValue(0);
+      sliderRandomPosition->setValue(0);
+      sliderPosicionImagen->setValue(0.5);
+      sliderTransparencia->setValue(0);
+      sliderCrossfadePuntos->setValue(0);
+      toggleVideo->setValue(false);    
+      toggleOcultarFondo->setValue(false);
+      shapeControl = Circle;
+      video.setPosition(0);
+      video.stop();
+      imageNumber = 0;      
+      break;
+    }    
   }
 }
 

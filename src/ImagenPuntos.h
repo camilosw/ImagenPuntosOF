@@ -29,6 +29,8 @@
 #define CONTROL_RANDOM_RADIUS "Control radio aleatorio"
 #define CONTROL_RANDOM_POSITION "Control posición aleatoria"
 #define CONTROL_FORMA "Control de forma"
+#define CONTROL_TRANSPARENCIA "Control Transparencia"
+#define CONTROL_CROSSFADE "Control Crossfade"
 #define PITCH_FORMA "Pitch de forma"
 #define CONTROL_VIDEO "Control de video"
 #define PITCH_VIDEO "Pitch de video"
@@ -77,6 +79,14 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUIToggle* toggleVideo;
     ofxUIToggle* toggleOcultarFondo;
 
+    ofxUITextInput* controlRadius;
+    ofxUITextInput* controlResolution;
+    ofxUITextInput* controlRandomRadius;
+    ofxUITextInput* controlRandomPosition;
+    ofxUITextInput* controlPosicionImagen;
+    ofxUITextInput* controlTransparencia;
+    ofxUITextInput* controlCrossfadePuntos;
+
     // Atributos de la interfaz midi
     ofxMidiIn	midiIn;
     ofxMidiMessage midiMessage;
@@ -88,18 +98,7 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUILabel* labelValorMidi;
 
     int imageNumber;
-    float radiusControl;
-    float resolutionControl;
-    float randomRadiusControl;
-    float randomPositionControl;
-    float positionControl;
-    float transparenciaControl;
-    float crossfadePuntosControl;
     Shapes shapeControl;
-    int radiusControlId;
-    int resolutionControlId;
-    int randomRadiusControlId;
-    int randomPositionControlId;    
     int shapeControlId;
     int shapeControlPitch;
     int videoControlId;

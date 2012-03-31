@@ -1106,13 +1106,13 @@
 	"ofPoint.h"
 	"ofTypes.h"
 
-1332384742 d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.h
+1333228741 d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.h
 	"ofMain.h"
 	"ParticleController.h"
 	"ofxUI.h"
 	"ofxMidi.h"
 
-1332710606 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.cpp
+1333229268 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.cpp
 	"ImagenPuntos.h"
 	<stdio.h>
 
@@ -1123,7 +1123,7 @@
 1329548878 d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\particle.h
 	"ofMain.h"
 
-1332384838 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\particlecontroller.cpp
+1332711187 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\particlecontroller.cpp
 	"ParticleController.h"
 	<math.h>
 
