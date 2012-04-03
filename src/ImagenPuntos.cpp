@@ -2,14 +2,14 @@
 #include <stdio.h>
 
 //--------------------------------------------------------------
-void ImagenPuntos::setup(){  
+void ImagenPuntos::setup(){
   ofSetFrameRate(30);
 
   guiSetup();
   guiMidiSetup();
   gui->setVisible(false);
   guiMidi->setVisible(false);
-  
+
   // Carga la imagen de fondo
   background.loadImage("cielo.jpg");
 
@@ -28,7 +28,7 @@ void ImagenPuntos::setup(){
   }
 
   // Carga el video
-  video.loadMovie("videos/negedit.mov");
+  video.loadMovie("videos/final.mov");
   //video.play();
 
   imageNumber = 0;
@@ -52,6 +52,7 @@ void ImagenPuntos::guiSetup() {
   sliderPosicionImagen  = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, POSICION_IMAGEN));
   sliderTransparencia   = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, TRANSPARENCIA_PUNTOS));
   sliderCrossfadePuntos = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, CROSSFADE_PUNTOS));
+  sliderVelocidad       = (ofxUISlider*)gui->addWidgetDown(new ofxUISlider(200, 8, 0.0, 1.0, 0.5, VELOCIDAD_IMAGEN));
 
   radioShape = (ofxUIRadio*)gui->addWidgetDown(new ofxUIRadio(8, 8, FORMAS, shapes, OFX_UI_ORIENTATION_HORIZONTAL));
   toggleVideo = (ofxUIToggle*)gui->addWidgetDown(new ofxUIToggle(8, 8, false, VIDEO));
@@ -82,20 +83,22 @@ void ImagenPuntos::guiMidiSetup() {
   labelValorMidi     = (ofxUILabel*)guiMidi->addWidgetDown(new ofxUILabel(VALOR_MIDI, OFX_UI_FONT_SMALL));
 
   guiMidi->addWidgetDown(new ofxUISpacer(200, 2));
-  controlRadius = 
+  controlRadius =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RADIUS, "Control de radio", OFX_UI_FONT_SMALL));
-  controlResolution = 
+  controlResolution =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RESOLUTION, "Control de resolución", OFX_UI_FONT_SMALL));
-  controlRandomRadius = 
+  controlRandomRadius =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_RADIUS, "Control de radio aleatorio", OFX_UI_FONT_SMALL));
-  controlRandomPosition = 
+  controlRandomPosition =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_RANDOM_POSITION, "Control de posición aleatoria", OFX_UI_FONT_SMALL));
-  controlPosicionImagen = 
+  controlPosicionImagen =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_POSITION, "Control de posición", OFX_UI_FONT_SMALL));
-  controlTransparencia = 
+  controlTransparencia =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_TRANSPARENCIA, "Control de transparencia", OFX_UI_FONT_SMALL));
-  controlCrossfadePuntos = 
+  controlCrossfadePuntos =
     (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_CROSSFADE, "Control crossfade", OFX_UI_FONT_SMALL));
+  controlVelocidad =
+    (ofxUITextInput*)guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_VELOCIDAD, "Control de velocidad", OFX_UI_FONT_SMALL));
   guiMidi->addWidgetDown(new ofxUITextInput(200, CONTROL_FORMA, "Control de forma", OFX_UI_FONT_SMALL));
   guiMidi->addWidgetDown(new ofxUITextInput(200, PITCH_FORMA, "Pitch de forma", OFX_UI_FONT_SMALL));
   guiMidi->loadSettings("GUI/guiMidiSettings.xml");
@@ -116,6 +119,16 @@ void ImagenPuntos::guiMidiSetup() {
 }
 //--------------------------------------------------------------
 void ImagenPuntos::update(){
+  float posicion = sliderPosicionImagen->getScaledValue();
+  if (posicionMovimiento > posicion) {
+    posicion += sliderVelocidad->getScaledValue() * 0.1 * abs(posicionMovimiento - posicion);
+    sliderPosicionImagen->setValue(posicion);
+  }
+  else if (posicionMovimiento < posicion) {
+    posicion -= sliderVelocidad->getScaledValue() * 0.1  * abs(posicionMovimiento - posicion);
+    sliderPosicionImagen->setValue(posicion);
+  }
+
   particleController.setRadius(sliderRadius->getScaledValue());
   particleController.setResolution(sliderResolution->getScaledValue());
   particleController.setRandomRadius(sliderRandomRadius->getScaledValue());
@@ -139,7 +152,7 @@ void ImagenPuntos::draw(){
   ofSetColor(255);
   if (!toggleOcultarFondo->getValue()) {
     background.draw(0, 0);
-  }  
+  }
   if (images.size() > 0) {
     particleController.draw();
   }
@@ -199,6 +212,9 @@ void ImagenPuntos::newMidiMessage(ofxMidiMessage& msg) {
   else if (msg.control == ofToInt(controlCrossfadePuntos->getTextString())) {
     sliderCrossfadePuntos->setValue(ofMap(msg.value, 0, 127, 0, 1));
   }
+  else if (msg.control == ofToInt(controlVelocidad->getTextString())) {
+    sliderVelocidad->setValue(ofMap(msg.value, 0, 127, 0, 1));
+  }
   else if (msg.control == shapeControlId && msg.value > 0) {
     shapeControl = shapeControl == Circle ? Square : Circle;
     //radioShape->activateToggle(shapeControl);
@@ -230,6 +246,18 @@ void ImagenPuntos::keyPressed(int key){
       shapeControl = shapeControl == Circle ? Square : Circle;
       break;
     }
+    case 'q': {
+      posicionMovimiento = 1;
+      break;
+    }
+    case 'w': {
+      posicionMovimiento = 0.5;
+      break;
+    }
+    case 'e': {
+      posicionMovimiento = 0;
+      break;
+    }
     case 356: { // Flecha izquierda
       if (imageNumber > 0) imageNumber--;
       break;
@@ -254,12 +282,12 @@ void ImagenPuntos::keyPressed(int key){
       sliderPosicionImagen->setValue(0.5);
       sliderTransparencia->setValue(0);
       sliderCrossfadePuntos->setValue(0);
-      toggleVideo->setValue(false);    
+      toggleVideo->setValue(false);
       toggleOcultarFondo->setValue(true);
       shapeControl = Circle;
       video.setPosition(0);
       video.stop();
-      imageNumber = 0;      
+      imageNumber = 0;
       break;
     }
     case '1': {
@@ -269,13 +297,13 @@ void ImagenPuntos::keyPressed(int key){
       sliderRandomPosition->setValue(0);
       sliderPosicionImagen->setValue(0.5);
       sliderTransparencia->setValue(1);
-      sliderCrossfadePuntos->setValue(1);
-      toggleVideo->setValue(true);    
+      sliderCrossfadePuntos->setValue(0);
+      toggleVideo->setValue(true);
       toggleOcultarFondo->setValue(true);
       shapeControl = Circle;
       video.setPosition(0);
-      video.play();
-      imageNumber = 0;      
+      video.stop();
+      imageNumber = 0;
       break;
     }
     case '2': {
@@ -291,10 +319,10 @@ void ImagenPuntos::keyPressed(int key){
       shapeControl = Circle;
       video.setPosition(0);
       video.stop();
-      imageNumber = 0;      
+      imageNumber = 0;
 
       break;
-    }    
+    }
     case '3': {
       sliderRadius->setValue(0);
       sliderResolution->setValue(0);
@@ -303,14 +331,14 @@ void ImagenPuntos::keyPressed(int key){
       sliderPosicionImagen->setValue(0.5);
       sliderTransparencia->setValue(0);
       sliderCrossfadePuntos->setValue(0);
-      toggleVideo->setValue(false);    
+      toggleVideo->setValue(false);
       toggleOcultarFondo->setValue(false);
       shapeControl = Circle;
       video.setPosition(0);
       video.stop();
-      imageNumber = 0;      
+      imageNumber = 0;
       break;
-    }    
+    }
   }
 }
 

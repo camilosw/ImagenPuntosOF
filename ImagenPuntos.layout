@@ -58,25 +58,25 @@
 	<File name="..\..\..\addons\ofxUI\src\ofxUIWidget.h" open="0" top="0" tabpos="9">
 		<Cursor position="5799" topLine="196" />
 	</File>
-	<File name="src\ImagenPuntos.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6663" topLine="110" />
+	<File name="src\ImagenPuntos.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="11577" topLine="256" />
 	</File>
 	<File name="src\ImagenPuntos.h" open="1" top="0" tabpos="2">
-		<Cursor position="2252" topLine="54" />
+		<Cursor position="2769" topLine="79" />
 	</File>
 	<File name="src\Particle.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="449" topLine="5" />
 	</File>
-	<File name="src\Particle.h" open="0" top="0" tabpos="5">
+	<File name="src\Particle.h" open="1" top="0" tabpos="6">
 		<Cursor position="861" topLine="11" />
 	</File>
 	<File name="src\ParticleController.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="1998" topLine="34" />
+		<Cursor position="1683" topLine="22" />
 	</File>
-	<File name="src\ParticleController.h" open="1" top="1" tabpos="4">
+	<File name="src\ParticleController.h" open="1" top="0" tabpos="4">
 		<Cursor position="942" topLine="19" />
 	</File>
-	<File name="src\main.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="223" topLine="0" />
+	<File name="src\main.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="419" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

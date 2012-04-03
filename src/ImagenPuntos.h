@@ -12,6 +12,7 @@
 #define POSICION_IMAGEN "Posición imagen"
 #define TRANSPARENCIA_PUNTOS "Transparencia puntos"
 #define CROSSFADE_PUNTOS "Crossfade puntos"
+#define VELOCIDAD_IMAGEN "Velocidad de movimiento de la imagen"
 #define FORMAS "Formas"
 #define VIDEO "Video (v)"
 #define OCULTAR_FONDO "Ocultar fondo (b)"
@@ -31,6 +32,7 @@
 #define CONTROL_POSITION "Control posición"
 #define CONTROL_TRANSPARENCIA "Control Transparencia"
 #define CONTROL_CROSSFADE "Control Crossfade"
+#define CONTROL_VELOCIDAD "Control velocidad"
 
 #define CONTROL_FORMA "Control de forma"
 #define PITCH_FORMA "Pitch de forma"
@@ -77,6 +79,7 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUISlider* sliderPosicionImagen;
     ofxUISlider* sliderTransparencia;
     ofxUISlider* sliderCrossfadePuntos;
+    ofxUISlider* sliderVelocidad;
     ofxUIRadio* radioShape;
     ofxUIToggle* toggleVideo;
     ofxUIToggle* toggleOcultarFondo;
@@ -88,6 +91,7 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     ofxUITextInput* controlPosicionImagen;
     ofxUITextInput* controlTransparencia;
     ofxUITextInput* controlCrossfadePuntos;
+    ofxUITextInput* controlVelocidad;
 
     // Atributos de la interfaz midi
     ofxMidiIn	midiIn;
@@ -105,4 +109,6 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     int shapeControlPitch;
     int videoControlId;
     int videoControlPitch;
+
+    float posicionMovimiento;
 };
