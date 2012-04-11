@@ -1091,7 +1091,7 @@
 	"ofCamera.h"
 	"ofEvents.h"
 
-1332108201 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\main.cpp
+1334112133 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\main.cpp
 	"ofMain.h"
 	"ImagenPuntos.h"
 	"ofAppGlutWindow.h"
@@ -1106,13 +1106,13 @@
 	"ofPoint.h"
 	"ofTypes.h"
 
-1333236376 d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.h
+1334110218 d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.h
 	"ofMain.h"
 	"ParticleController.h"
 	"ofxUI.h"
 	"ofxMidi.h"
 
-1334105172 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.cpp
+1334110276 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.cpp
 	"ImagenPuntos.h"
 	<stdio.h>
 	<math.h>

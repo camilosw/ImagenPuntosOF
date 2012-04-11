@@ -111,4 +111,7 @@ class ImagenPuntos : public ofBaseApp, public ofxMidiListener {
     int videoControlPitch;
 
     float posicionMovimiento;
+    
+    int initWidth;
+    int initHeight;
 };

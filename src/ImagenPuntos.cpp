@@ -5,6 +5,9 @@
 //--------------------------------------------------------------
 void ImagenPuntos::setup(){
   ofSetFrameRate(30);
+  
+  initWidth = ofGetWidth();
+  initHeight = ofGetHeight();
 
   guiSetup();
   guiMidiSetup();
@@ -41,7 +44,7 @@ void ImagenPuntos::guiSetup() {
   shapes.push_back("Círculos");
   shapes.push_back("Cuadrados");
 
-  gui = new ofxUICanvas(0, 0, 220, 400);
+  gui = new ofxUICanvas(ofGetWidth() + 50, 0, 220, 400);
   gui->setColorBack(ofColor(0, 150));
   gui->addWidgetDown(new ofxUIFPS(OFX_UI_FONT_SMALL));
   gui->addWidgetDown(new ofxUISpacer(200, 2));
@@ -71,7 +74,7 @@ void ImagenPuntos::guiMidiSetup() {
   midiIn.setVerbose(true);
   portList = midiIn.getPortList();
 
-  guiMidi = new ofxUICanvas(ofGetWidth() - 220, 0, 220, 500);
+  guiMidi = new ofxUICanvas(ofGetWidth() + 270, 0, 220, 500);
   guiMidi->setColorBack(ofColor(0, 150));
   ofxUIDropDownList* puertosMidi =
     (ofxUIDropDownList*)guiMidi->addWidgetDown(new ofxUIDropDownList(200, PUERTOS_MIDI, portList, OFX_UI_FONT_SMALL));
@@ -119,7 +122,7 @@ void ImagenPuntos::guiMidiSetup() {
   shapeControlPitch       = ofToInt(((ofxUITextInput*)guiMidi->getWidget(PITCH_FORMA))->getTextString());
 }
 //--------------------------------------------------------------
-void ImagenPuntos::update(){
+void ImagenPuntos::update(){  
   float posicion = sliderPosicionImagen->getScaledValue();
   float aceleracion = 0.2;
   if (posicionMovimiento > 0.3 && posicionMovimiento < 0.7) {
@@ -238,6 +241,10 @@ void ImagenPuntos::newMidiMessage(ofxMidiMessage& msg) {
 void ImagenPuntos::keyPressed(int key){
   cout << key << "\n";
   switch (key) {
+    case 'f': {
+      ofToggleFullscreen();
+      break;
+    }
     case 'g': {
       gui->toggleVisible();
       guiMidi->toggleVisible();
@@ -358,7 +365,13 @@ void ImagenPuntos::keyReleased(int key){
 
 //--------------------------------------------------------------
 void ImagenPuntos::mouseMoved(int x, int y ){
-
+  //if (x < initWidth && y < initHeight) {
+  if (x < initWidth + 50) {
+    ofHideCursor();
+  }
+  else {
+    ofShowCursor();
+  }
 }
 
 //--------------------------------------------------------------
