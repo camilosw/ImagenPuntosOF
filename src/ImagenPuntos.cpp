@@ -1,5 +1,6 @@
 #include "ImagenPuntos.h"
 #include <stdio.h>
+#include <math.h>
 
 //--------------------------------------------------------------
 void ImagenPuntos::setup(){
@@ -120,12 +121,20 @@ void ImagenPuntos::guiMidiSetup() {
 //--------------------------------------------------------------
 void ImagenPuntos::update(){
   float posicion = sliderPosicionImagen->getScaledValue();
+  float aceleracion = 0.2;
+  if (posicionMovimiento > 0.3 && posicionMovimiento < 0.7) {
+    float distancia = abs(posicionMovimiento - posicion);
+    if (distancia < 0.05) {
+      aceleracion = distancia * 4;
+    }    
+  }
+  float velocidad = sliderVelocidad->getScaledValue() * aceleracion;
   if (posicionMovimiento > posicion) {
-    posicion += sliderVelocidad->getScaledValue() * 0.1 * abs(posicionMovimiento - posicion);
+    posicion += velocidad;
     sliderPosicionImagen->setValue(posicion);
   }
   else if (posicionMovimiento < posicion) {
-    posicion -= sliderVelocidad->getScaledValue() * 0.1  * abs(posicionMovimiento - posicion);
+    posicion -= velocidad;
     sliderPosicionImagen->setValue(posicion);
   }
 

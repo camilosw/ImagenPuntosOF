@@ -1112,9 +1112,10 @@
 	"ofxUI.h"
 	"ofxMidi.h"
 
-1333232919 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.cpp
+1334105172 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\imagenpuntos.cpp
 	"ImagenPuntos.h"
 	<stdio.h>
+	<math.h>
 
 1331263321 source:d:\personal\proyectos\openframeworks\0.07_cb\apps\programas\imagenpuntos\src\particle.cpp
 	"Particle.h"
@@ -1131,7 +1132,7 @@
 	"Particle.h"
 	<list>
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxui.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxui.h
 	"ofMain.h"
 	"ofxXmlSettings.h"
 	"ofxUIRectangle.h"
@@ -1182,79 +1183,79 @@
 1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuirectangle.h
 	"ofMain.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiwidget.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiwidget.h
 
 1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuieventargs.h
 	"ofMain.h"
 	"ofxUI.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuilabel.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuilabel.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuifps.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuifps.h
 	"ofxUILabel.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuislider.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuislider.h
 	"ofxUIWidget.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuirangeslider.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuirangeslider.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuitoggle.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuitoggle.h
 	"ofxUIButton.h"
 
-1331403024 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuibutton.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuibutton.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiradio.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiradio.h
 	"ofxUIWidget.h"
 	"ofxUIToggle.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxui2dpad.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxui2dpad.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuitextinput.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuitextinput.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuinumberdialer.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuinumberdialer.h
 	"ofxUIWidget.h"
 	<math.h>
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuilabelbutton.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuilabelbutton.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuilabeltoggle.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuilabeltoggle.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuitogglematrix.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuitogglematrix.h
 	"ofxUIWidget.h"
 	"ofxUIToggle.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiimagebutton.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiimagebutton.h
 	"ofxUIWidget.h"
 
 1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiimagetoggle.h
 	"ofxUIWidget.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuirotaryslider.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuirotaryslider.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuispacer.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuispacer.h
 	"ofxUIWidget.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuidropdownlist.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuidropdownlist.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiwaveform.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiwaveform.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuispectrum.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuispectrum.h
 	"ofxUIWidget.h"
 
-1330144366 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiimage.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiimage.h
 	"ofxUIWidget.h"
 
-1331479789 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuicanvas.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuicanvas.h
 	"ofxUIWidget.h"
 	<vector>
 
@@ -1344,12 +1345,12 @@
 	<jack/midiport.h>
 	<jack/ringbuffer.h>
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiminimalslider.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuiminimalslider.h
 	"ofxUISlider.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuibilabelslider.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuibilabelslider.h
 	"ofxUISlider.h"
 
-1331395440 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuimovinggraph.h
+1333824786 d:\personal\proyectos\openframeworks\0.07_cb\addons\ofxui\src\ofxuimovinggraph.h
 	"ofxUIWidget.h"
 
